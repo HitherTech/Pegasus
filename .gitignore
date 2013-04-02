@@ -3,3 +3,7 @@
 /composer.lock
 /composer.phar
 /.git/*
+.git/*
+.settings/*
+.buildpath
+.project

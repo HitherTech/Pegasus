@@ -1,7 +1,7 @@
 <?php
-namespace App\Core;
+namespace Pegasus\Core;
 
-use App\Core\Router;
+use Pegasus\Core\Router;
 
 class Request extends Response {
     /**

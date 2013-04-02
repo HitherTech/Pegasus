@@ -1,7 +1,7 @@
 <?php
-namespace App\Core;
+namespace Pegasus\Core;
 
-use App\Core\Request;
+use Pegasus\Core\Request;
 
 class Controller {
     /**

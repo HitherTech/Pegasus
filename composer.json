@@ -1,5 +1,25 @@
 {
+    "name": "pegasus/pegasus",
+    "description": "Lightweight PHP Framework",
+    "keywords": ["php","framework","pegasus"],
+    "type": "library",
+    "homepage": "https://github.com/bakkelun/Pegasus",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "K B",
+            "email": "bakkelun@gmail.com",
+            "homepage": "http://www.dosspirit.net",
+            "role": "Developer"
+        }
+    ],
     "require": {
+        "php": ">=5.3.0",
         "gabordemooij/redbean": "v3.3.6"
+    },
+    "autoload": {
+        "psr-0": {
+            "Pegasus": "src/"
+        }
     }
 }

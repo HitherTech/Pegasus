@@ -1,7 +1,7 @@
 <?php
-namespace App\Core;
+namespace Pegasus\Core;
 
-use App\Config\Configuration;
+use Pegasus\Config\Configuration;
 
 class Router {
     /**

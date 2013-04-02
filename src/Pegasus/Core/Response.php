@@ -1,7 +1,7 @@
 <?php
-namespace App\Core;
+namespace Pegasus\Core;
 
-use App\Core\View;
+use Pegasus\Core\View;
 
 class Response {
     /**

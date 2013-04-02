@@ -1,8 +1,8 @@
 <?php
-namespace  App\Controller;
+namespace  Pegasus\Controller;
 
-use App\Core\Auth;
-use App\Core\Controller;
+use Pegasus\Core\Auth;
+use Pegasus\Core\Controller;
 
 class AuthController extends Controller {
 

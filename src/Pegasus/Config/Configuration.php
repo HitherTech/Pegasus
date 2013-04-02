@@ -1,10 +1,8 @@
 <?php
-namespace App\Config;
-
-use App\Config\Local;
+namespace Pegasus\Config;
 
 class Configuration {
-    const appNamespaceDefinition = 'App';
+    const appNamespaceDefinition = 'Pegasus';
     private static $dbHost;
     private static $dbType;
     private static $dbName;
@@ -23,8 +21,13 @@ class Configuration {
         return self::getDbType() . ':host=' . self::getHost() . ';dbname=' . self::getDatabase();
     }
 
-    public static function init() {
-        $local = Local::config();
+    /**
+     * Initiate configuration.
+     *
+     * @param array $localConfig
+     */
+    public static function init($localConfig) {
+        $local = $localConfig;
 
         // Database settings.
         self::$dbHost = $local['db']['host'];

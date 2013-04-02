@@ -1,11 +1,11 @@
 <?php
-namespace App\Core;
+namespace Pegasus\Core;
 
-use App\Config\Configuration;
-use App\Core\Request;
-use App\Core\Response;
-use App\Core\Router;
-use App\Core\ControllerNotFoundException;
+use Pegasus\Config\Configuration;
+use Pegasus\Core\Request;
+use Pegasus\Core\Response;
+use Pegasus\Core\Router;
+use Pegasus\Core\ControllerNotFoundException;
 use \RedBean_Facade as Redbean;
 
 class Dispatcher {
@@ -30,7 +30,7 @@ class Dispatcher {
      *
      */
     public function dispatch() {
-        $request = new \App\Core\Request();
+        $request = new \Pegasus\Core\Request();
         $request->parseRequest();
         $request->setBaseUrl(Configuration::getBaseUrl());
 
@@ -47,9 +47,9 @@ class Dispatcher {
         try {
             $mimeType = null;
             $auth = null;
-            $controllerNs = Configuration::getNamespace() . '\Controller\\' . $request->getControllerClassName() . 'Controller';
+            $controllerNs = 'App\Controller\\' . $request->getControllerClassName() . 'Controller';
             $controllerAction = $request->getControllerAction();
-            $viewPath = APP_DIR . DIRECTORY_SEPARATOR. 'View' . DIRECTORY_SEPARATOR . $request->getControllerClassName() . DIRECTORY_SEPARATOR . $request->getControllerAction();
+            $viewPath = APP_DIR . DIRECTORY_SEPARATOR . 'View' . DIRECTORY_SEPARATOR . $request->getControllerClassName() . DIRECTORY_SEPARATOR . $request->getControllerAction();
 
             // Set auth infront of anything admin route related.
             if ($request->getRouteRequiresAuth()) {
@@ -63,7 +63,7 @@ class Dispatcher {
                     // Intercept request requiring Auth by serving AuthController up first.
                     $controllerNs = Configuration::getNamespace() . '\Controller\AuthController';
                     $controllerAction = 'index';
-                    $viewPath = APP_DIR . DIRECTORY_SEPARATOR . 'View' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'index';
+                    $viewPath = VENDOR_DIR . DIRECTORY_SEPARATOR . 'View' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'index';
                 }
             }
 

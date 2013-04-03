@@ -33,7 +33,7 @@ class View {
         $this->file = (string) $fileName . '.phtml';
 
         if (!file_exists($this->file)) {
-            throw new \Exception('View ' . $this->file  .' not found!');
+            throw new \Exception('View error: ' . $this->file  .' not found!');
         }
 
         if ($vars !== false) {

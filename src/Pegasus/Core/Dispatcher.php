@@ -5,7 +5,6 @@ use Pegasus\Config\Configuration;
 use Pegasus\Core\Request;
 use Pegasus\Core\Response;
 use Pegasus\Core\Router;
-use Pegasus\Core\ControllerNotFoundException;
 use \RedBean_Facade as Redbean;
 
 class Dispatcher {
@@ -30,7 +29,7 @@ class Dispatcher {
      *
      */
     public function dispatch() {
-        $request = new \Pegasus\Core\Request();
+        $request = new Request();
         $request->parseRequest();
         $request->setBaseUrl(Configuration::getBaseUrl());
 
@@ -72,16 +71,16 @@ class Dispatcher {
                 $controller = new $controllerNs;
                 $controller->setRequest($request);
 
-                // Assign the view to this matching controller and action.
-                $controllerView = new View($viewPath);
-                $controller->setView($controllerView);
-                $controller->setAuthed($auth);
-                $controller->setAdapter(new Redbean());
-
                 // Verify the action defined by user and matched by router actually exists and isn't private.
                 if (substr($controllerAction, 0, 1) == '_' || !method_exists($controller, $controllerAction)) {
-                    throw new \Exception('action_not_found', '404');
+                    // Throw exception if action not found.
+                    throw new \Exception('Action error: ' .  $controllerAction . ' action not found!');
                 } else {
+                    // Assign the view to this matching controller and action.
+                    $controllerView = new View($viewPath);
+                    $controller->setView($controllerView);
+                    $controller->setAuthed($auth);
+                    $controller->setAdapter(new Redbean());
                     call_user_func_array(array($controller, $controllerAction), array());
 
                     // See if the controller has invoked any redirection after its init.
@@ -94,13 +93,18 @@ class Dispatcher {
                     $request->setContent($controller->getView()->render());
                     $mimeType = $controller->getMimeType();
                 }
-            } else{
-                // Throw exception if no qualified route can be found.
-                throw new \Exception('controller_not_found', '404');
+            } else {
+                // Throw exception if controller cannot be found.
+                throw new \Exception('Controller error: ' . $controllerNs . ' does not exist!');
             }
         } catch (\Exception $e) {
-            $request->setStatusCode($e->getCode());
             $request->setStatusMessage($e->getMessage());
+
+            if ($e->getCode()) {
+                $request->setStatusCode($e->getCode());
+            } else {
+                $request->setContent($e->getMessage());
+            }
         }
 
         $request->send($mimeType);

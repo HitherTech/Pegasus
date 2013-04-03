@@ -12,7 +12,6 @@ class Router {
      */
     public function parseRoute($inboundRoute) {
         $routes = Configuration::getRoutes();
-        $returnRoute = $routes['default'];
         $returnRoute['matched'] = null;
         $returnRoute['auth'] = null;
 
@@ -30,6 +29,12 @@ class Router {
                 $returnRoute['matched'] = 1;
                 break;
             }
+        }
+
+        if (!key_exists('controller', $route) || !key_exists('action', $route)) {
+            // Ensure the route has needed attributes.
+            $returnRoute['controller'] = $inboundRoute[0];
+            $returnRoute['action'] = $inboundRoute[1];
         }
 
         return $returnRoute;

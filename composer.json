@@ -7,7 +7,7 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "K B",
+            "name": "bakkelun",
             "email": "bakkelun@gmail.com",
             "homepage": "http://www.dosspirit.net",
             "role": "Developer"
@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "gabordemooij/redbean": "v3.3.6"
+        "gabordemooij/redbean": "v3.4"
     },
     "autoload": {
         "psr-0": {

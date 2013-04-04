@@ -31,7 +31,7 @@ class Router {
             }
         }
 
-        if (!key_exists('controller', $route) || !key_exists('action', $route)) {
+        if (!key_exists('controller', $returnRoute) || !key_exists('action', $returnRoute)) {
             // Ensure the route has needed attributes.
             $returnRoute['controller'] = $inboundRoute[0];
             $returnRoute['action'] = $inboundRoute[1];

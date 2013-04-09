@@ -56,11 +56,10 @@ class Response {
         503 => 'Service Unavailable',
         504 => 'Gateway Time-out'
     );
-
     /**
      * Status code.
      *
-     * @var int
+     * @var integer
      */
     protected $_statusCode;
     /**
@@ -134,7 +133,7 @@ class Response {
     /**
      * Retrieve status code.
      *
-     * @return number
+     * @return integer
      */
     public function getStatusCode() {
         return $this->_statusCode;
@@ -207,6 +206,7 @@ class Response {
      * Sets the response type.
      *
      * @param string $type
+     * @return void
      */
     public function setMimeType($type) {
         $type = mb_strtolower($type, 'utf-8');

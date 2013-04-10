@@ -178,6 +178,7 @@ class Response {
     /**
      * Setup default json representation response notation.
      *
+     * @param string $mimeType
      * @return string
      */
     private function _constructResponse($mimeType) {
@@ -186,18 +187,29 @@ class Response {
         }
 
         switch ($mimeType) {
-            default:
-            case 'json':
-                $jsonResponseArray = array(
-                    'success' => ($this->getStatusCode() == 200),
-                    'code' => $this->getStatusCode(),
-                    'message' => $this->getContent()
-                );
-                return json_encode($jsonResponseArray);
-
-                break;
             case 'html':
                 return $this->getContent();
+                break;
+            case 'json':
+            default:
+                $returnType = 'json';
+                $content = json_decode($this->getContent());
+
+                if (is_null($content)) {
+                    $content = $this->getContent();
+                    $returnType = 'text';
+                }
+
+                $response = array(
+                    'success' => ($this->getStatusCode() == 200),
+                    'code' => $this->getStatusCode(),
+                    'messagetype' => $returnType,
+                    'message' => $content
+              );
+
+                $returnOutput = json_encode($response);
+
+                return $returnOutput;
                 break;
         }
     }

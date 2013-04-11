@@ -203,8 +203,8 @@ class Response {
                 $response = array(
                     'success' => ($this->getStatusCode() == 200),
                     'code' => $this->getStatusCode(),
-                    'messagetype' => $returnType,
-                    'message' => $content
+                    'datatype' => $returnType,
+                    'data' => $content
               );
 
                 $returnOutput = json_encode($response);

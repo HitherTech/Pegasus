@@ -16,11 +16,12 @@ class Router {
         $returnRoute['auth'] = null;
 
         foreach ($routes as $routeName => $route) {
-            // Bind detailed extended routes by only the controller and action.
+            // There exists at least a controller and action in the incoming route.
             if (count($inboundRoute) > 2) {
+                // Bind detailed extended routes by only the controller and action.
                 $segmentedRoute = $inboundRoute[0] . '/' . $inboundRoute[1];
-                // Otherwise join the elements.
             } else {
+                // Aliasing means no defined action. Default it to index.
                 $segmentedRoute = join('/', $inboundRoute);
             }
 

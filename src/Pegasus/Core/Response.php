@@ -82,6 +82,16 @@ class Response {
     protected $_mimeTypes = array(
         'json' => 'application/json',
         'html' => 'text/html',
+        'xml' => 'text/xml',
+        'csv' => 'text/csv',
+        'zip' => 'application/zip',
+        'gzip' => 'application/gzip',
+        'pdf' => 'application/pdf',
+        'mp4' => 'audio/mp4',
+        'jpeg' => 'image/jpeg',
+        'png' => 'image/png',
+        'gif' => 'image/gif',
+        'svg' => 'image/svg+xml'
     );
 
     protected $_mimeType = 'html';
@@ -188,10 +198,10 @@ class Response {
 
         switch ($mimeType) {
             case 'html':
+            default:
                 return $this->getContent();
                 break;
             case 'json':
-            default:
                 $returnType = 'json';
                 $content = json_decode($this->getContent());
 

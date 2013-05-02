@@ -59,10 +59,17 @@ class Dispatcher {
                         $auth = null;
                     }
                 } else {
-                    // Intercept request requiring Auth by serving AuthController up first.
-                    $controllerNs = Configuration::getNamespace() . '\Controller\AuthController';
+                    // Check if there exists a override user class for Auth.
+                    $controllerNs = 'App\Controller\AuthController';
+
+                    $viewPath = APP_DIR . DIRECTORY_SEPARATOR . 'View' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'index';
+                    if (!class_exists($controllerNs)) {
+                        // Otherwise intercept request requiring Auth by serving AuthController from Core.
+                        $controllerNs = Configuration::getNamespace() . '\Controller\AuthController';
+                        $viewPath = VENDOR_DIR . DIRECTORY_SEPARATOR . 'View' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'index';
+                    }
+
                     $controllerAction = 'index';
-                    $viewPath = VENDOR_DIR . DIRECTORY_SEPARATOR . 'View' . DIRECTORY_SEPARATOR . 'Auth' . DIRECTORY_SEPARATOR . 'index';
                 }
             }
 
